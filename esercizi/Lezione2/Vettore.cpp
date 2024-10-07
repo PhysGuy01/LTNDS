@@ -1,51 +1,63 @@
 #include "Vettore.h"
 
-Vettore::Vettore() {
-    m_N = 0;
-    m_v = NULL;
+
+Vettore::Vettore()  {
+  m_N = 0;
+  m_v = NULL;
 }
 
-Vettore::Vettore(int N)  {
-    if (N < 0) {
-        cout << "Numero di elementi negativo!" << endl;
-        exit(1);
-    } else {
-        m_N = N;
-        m_v = new double[m_N];
-        for (int i = 0; i < m_N; i++) 
-            m_v = 0; // inizializzo gli elementi a zero
-    }
+Vettore::Vettore(int N) {
+	if ( N < 0 ) {
+		cout << "Errore: la dimensione deve essere positiva " << endl;
+		exit (1); 
+	} else {
+		m_N = N;
+		// Crea un array di double della giusta dimensione
+		// e inizializza gli elementi a 0
+		m_v = new double[N];
+		for (int k = 0 ; k < N ; k++) 
+			m_v[k] = 0;
+	}
 }
 
+// Destructor
 Vettore::~Vettore() {
-    delete[] m_v;
-    m_v = nullptr;
+	delete[] m_v;
 }
 
-void Vettore::SetComponent(int i, double d) {
-    if (i < m_N) {
-        m_v[i] = d; 
-    } else {
-        cout << "Errore nell'indicizzazione in SetComponent" << endl;
-        exit(2);
-    }
+// Assegna il valore a all'elemento i-esimo del vettore
+void Vettore::SetComponent(int i, double a) {
+	if (i < m_N) {
+		m_v[i] = a;
+	} else {
+		cout << "Errore: indice passato in SetComponent: " << i << endl;
+		exit (2); 
+	}
 }
 
+// Restituisce il valore i-esimo
 double Vettore::GetComponent(int i) const {
-    if ( i < m_N ) {
-        cout << "in vettore.cpp " << m_N;
-        cout << " " << m_v[0] << endl;
-        return m_v[i];
-    } else {
-        cout << "Errore: indice " << i << ", dimensione " << m_N << endl;
-        exit(2);
-    }
+	if (i < m_N) {
+		return m_v[i];
+	} else {
+		cout << "Errore: indice passato in GetComponent: " << i << endl;
+		exit(2); 
+	}
 }
 
-void Vettore::Scambia(int primo, int sec) const {
-    double tmp = m_v[primo];
-    m_v[primo] = m_v[sec];
-    m_v[sec] = tmp;
+// Scambia due valori nell'array
+const void Vettore::Scambia(int primo, int secondo){
+	double temp = GetComponent(primo);
+	SetComponent(primo, GetComponent(secondo));
+	SetComponent(secondo, temp);
+}
+
+// Overloading costruttore di copia
+Vettore::Vettore(const Vettore& V) {
+	m_N = V.GetN();
+	m_v = new double[m_N];
+	for (int i = 0; i < m_N; i++) 
+		m_v[i] = V.GetComponent(i);
 }
 
 Vettore& Vettore::operator=(const Vettore& V) {
@@ -62,7 +74,7 @@ double& Vettore::operator[](int i) {
     if ( i < m_N ) {
         return m_v[i];
     } else {
-        cout << "Errore: indice " << i << ", dimensione " << m_N << endl;
+		cout << "Errore: indice passato: " << i << endl;
         exit(2);
     }
 }

@@ -4,8 +4,8 @@ MAKEFLAGS += --silent
 
 all: compila
 
-funzioni: funzioni.h funzioni.cpp
-	${CXX} -c funzioni.cpp
+funzioni: funzioni.cpp funzioni.h
+	${CXX} -c $<
 
 Vettore: Vettore.cpp Vettore.h
 	${CXX} -c $<
@@ -14,7 +14,7 @@ main: main.cpp
 	${CXX} -c $^
 
 compila: main.o funzioni.o Vettore.o
-	${CXX} -o prog $^
+	${CXX} -o esercizio2.2 $^
 
 clean: 
-	rm -f funzioni.o main.o Vettore.o prog
+	rm -f *.o esercizio2.2

@@ -19,8 +19,8 @@ class Vettore { // Definisco un nuovo tipo di variabile (di tipo Vettore)
         }
 
         // Manca distruttore 
-        ~Vettore
-    private: // nessuno puo' accedere a questi dati a meno che non siano metodi della classe stessa
+    //   ~Vettore
+    //private: // nessuno puo' accedere a questi dati a meno che non siano metodi della classe stessa
         unsigned int m_N;
         double *m_v;
 
@@ -34,7 +34,7 @@ int main() {
     Vettore *myvett_poi = new Vettore(); // ho costruito un puntatore a un oggetto di tipo vettore
     Vettore *myvett_poi = new Vettore(10);
 
-    myvett_obj_2.SetComponent(3,99.) // Guarda pdf...
+    //myvett_obj_2.SetComponent(3,99.) // Guarda pdf...
 
-   return 0;
+   //return 0;
 }
