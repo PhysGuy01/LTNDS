@@ -11,7 +11,7 @@ main: main.cpp
 	${CXX} -c $^
 
 compila: main.o funzioni.o
-	${CXX} -o prog $^
+	${CXX} -o esercizio1.3 $^
 
 clean: 
-	rm -f funzioni.o main.o prog
+	rm -f funzioni.o main.o esercizio1.3

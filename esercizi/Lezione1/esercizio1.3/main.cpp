@@ -1,12 +1,5 @@
 #include "funzioni.h"
 
-// Esercizio 1.1 main omnicomprensivo
-// Esercizio 1.2 file separati
-// Esercizio 1.3 aggiungi funzione print (<-- consegna questo)
-
-// bubble sort?
-// sort array orginale o per forza copia
-
 int main(int argc, char** argv) {
     
     // Controlla se gli argomenti passati sono almeno 2
