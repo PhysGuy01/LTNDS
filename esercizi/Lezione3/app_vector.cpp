@@ -73,8 +73,8 @@ template <typename T> class Vettore {
 int main() {
     int ndata;
     char * filename;
-    Vettore <double> v = Read<double>(ndata, filename); // Devo specificare in che tipo concretizzo la mia classe 
-    double media = calcMedia<double>(v); 
+    // Vettore <double> v = Read<double>(ndata, filename); // Devo specificare in che tipo concretizzo la mia classe 
+    // double media = calcMedia<double>(v); 
 
     // Vector:
     double a;
