@@ -1,14 +1,4 @@
-#ifndef __funzioni_h__
-#define __funzioni_h__
-
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <cmath>
-
-#include "Vettore.h"
-
-using namespace std;
+#include "funzioni.h"
 
 
 // Se viene inserito un numero maggiore del numero di dati totale
@@ -28,7 +18,7 @@ int catchEOF(string filename, int nDat) {
 }
 
 // Carica un vettore con i dati dal file e lo ritorna
-template <typename T> Vettore<T> Read(int nDat, string& filename){
+template <typename T> Vettore<T> Read(int nDat, string& filename) {
     fstream f;
     f.open(filename, ios::in);
 
@@ -40,8 +30,10 @@ template <typename T> Vettore<T> Read(int nDat, string& filename){
     return V;
 }
 
+// Funzioni analisi:
+
 // Calcola la media di un set di dati in un vettore
-template <typename T> double CalcMedia(const Vettore<T>& V){
+template <typename T> T CalcMedia(const Vettore<T>& V) {
     double sum = 0;
     for (int i = 0; i < V.GetN(); i++) 
         sum += V.GetComponent(i);
@@ -50,7 +42,7 @@ template <typename T> double CalcMedia(const Vettore<T>& V){
 }
 
 // Calcola la varianza di un set di dati in un vettore
-template <typename T> double calcVarianza(const Vettore<T>& v){
+template <typename T> T calcVarianza(const Vettore<T>& v) {
     double sum = 0;
     double media = CalcMedia(v);
     for (int i = 0; i < v.GetN(); i++) 
@@ -60,7 +52,18 @@ template <typename T> double calcVarianza(const Vettore<T>& v){
 }
 
 // Riordina il vettore in ordine crescente
-template <typename T> double calcMediana(Vettore<T> v){
+template <typename T> Vettore<T> sortVett(Vettore<T>& v) {
+    // Bubble sort
+    for (int i = 0; i < v.GetN(); i++)
+        for (int j = i + 1; j < v.GetN(); j++) 
+            if (v.GetComponent(j) < v.GetComponent(i))  
+                v.Scambia(i, j);
+            
+    return v;
+}
+
+// Calcola la mediana di un set di dat in un vettore
+template <typename T> T calcMediana(Vettore<T> v) {
     sortVett(v); // Riordina il vettore in ordine crescente
     int nDat = v.GetN(); 
 
@@ -71,19 +74,9 @@ template <typename T> double calcMediana(Vettore<T> v){
     return (nDat % 2 == 0) ? medPari : v[nDat/2];
 }
 
-// Riordina il vettore in ordine crescente
-template <typename T> Vettore<T> sortVett(Vettore<T>& v){
-    // Bubble sort
-    for (int i = 0; i < v.GetN(); i++)
-        for (int j = i + 1; j < v.GetN(); j++) 
-            if (v.GetComponent(j) < v.GetComponent(i))  
-                v.Scambia(i, j);
-            
-    return v;
-}
 
 // Stampa i valori del vettore a video
-template <typename T> void print(const Vettore<T>& v){
+template <typename T> void print(const Vettore<T>& v) {
     for (int i = 0; i < v.GetN(); i++) 
         cout << "v[" << i << "] = " << v.GetComponent(i) << endl;
 }
@@ -98,5 +91,3 @@ template <typename T> void print(const Vettore<T>& v, string fileout) {
 
     f.close();
 }
-
-#endif
