@@ -53,13 +53,14 @@ template <typename T> double CalcMedia(const Vettore<T>& V){
 template <typename T> double calcVarianza(const Vettore<T>& v){
     double sum = 0;
     double media = CalcMedia(v);
+
     for (int i = 0; i < v.GetN(); i++) 
         sum += pow(v.GetComponent(i) - media,2);
     
     return sum / (v.GetN() - 1);
 }
 
-// Riordina il vettore in ordine crescente
+// Calcola la mediana di un set di dati in un vettore
 template <typename T> double calcMediana(Vettore<T> v){
     sortVett(v); // Riordina il vettore in ordine crescente
     int nDat = v.GetN(); 

@@ -57,13 +57,14 @@ template <typename T> double CalcMedia(const vector<T>& V){
 template <typename T> double calcVarianza(const vector<T>& v){
     double sum = 0;
     double media = CalcMedia(v);
+    
     for (int i = 0; i < v.size(); i++) 
         sum += pow(v[i] - media,2);
     
     return sum / (v.size() - 1);
 }
 
-// Riordina il vettore in ordine crescente
+// Calcola la mediana di un set di dati in un vettore
 template <typename T> double calcMediana(vector<T> v){
     sort(v.begin(), v.end()); // Riordina il vettore in ordine crescente
     int nDat = v.size(); 
