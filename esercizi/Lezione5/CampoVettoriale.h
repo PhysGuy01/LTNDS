@@ -3,8 +3,6 @@
 
 #include "Posizione.h"
 
-using namespace std;
-
 class CampoVettoriale : public Posizione {
 
     public:

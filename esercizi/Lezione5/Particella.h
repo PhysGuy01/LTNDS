@@ -1,7 +1,6 @@
 #ifndef __Particella_h__
 #define __Particella_h__
 
-using namespace std;
 
 class Particella {
 

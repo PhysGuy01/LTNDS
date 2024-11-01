@@ -1,5 +1,6 @@
 #include "Particella.h"
 #include <iostream>
+using namespace std;
 
 Particella::Particella(double massa, double carica) {
     m_massa = massa;

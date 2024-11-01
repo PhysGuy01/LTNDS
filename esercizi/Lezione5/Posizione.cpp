@@ -1,5 +1,7 @@
 #include "Posizione.h"
 #include <cmath>
+using namespace std;
+
 
 Posizione::Posizione() {
     mx = 0;
