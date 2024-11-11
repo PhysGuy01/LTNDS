@@ -1,9 +1,14 @@
 #include "CampoVettoriale.h"
 #include "PuntoMateriale.h"
-#include "TCanvas.h"
-#include "TApplication.h"
+
+
 #include "TGraph.h"
+#include "TCanvas.h"
 #include "TF1.h"
+#include "TApplication.h"
+#include "TAxis.h"
+#include "TLegend.h"
+
 
 #include <cmath>
 #include <fstream>
@@ -16,7 +21,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-    if (argc!= 4) {
+    if (argc != 4) {
         cout << "Utilizzo: " << argv[0] << " <x> <y> <z>" << endl;
         exit(1); 
     }
@@ -35,32 +40,38 @@ int main(int argc, char** argv) {
     CampoVettoriale E = elettrone.CampoElettrico(p) + protone.CampoElettrico(p);
 
     cout << "E = (" << E.getVX() << ", " << E.getVY() << ", " << E.getVZ() << ")" << endl;
+    
+
+    // ------------------------------------
+    //   Grafico della funzione con ROOT
+    // ------------------------------------
 
     TApplication app("Grafico", 0, 0);
 
-    TGraph *g = new TGraph();
+    TGraph trend;
 
+    int index = 0;
     for (int i = 100; i < 1000; i++) {
         double z = i * d;
         Posizione pi(0, 0 , z);
         CampoVettoriale Ei = elettrone.CampoElettrico(pi) + protone.CampoElettrico(pi);
-        g->SetPoint(i, z, Ei.getVZ()); // why does it show the first dot at y =0?
+        trend.SetPoint(index, z, Ei.getVZ()); 
+        index++;
     }
 
-    TCanvas *mygraph = new TCanvas("mygraph","grafico") ;
-    g->SetMarkerStyle(21);
-    g->SetMarkerColor(9);
-    g->Draw("ALP");
+    TCanvas canva("Campo dipolo","Grafico del campo elettrico");
+    canva.cd();
 
-    //TF1 *f1 = new TF1("f1","Ei",0.,10.);
-
-    //f1->SetParameter(0,10.);     // Definire il parametro [0] a 10.
-    //f1->SetParameters(5.,1.,0.1);   // Definire [0] -> 10. e [1] a 5.
-
-   //g->Fit(f1);
-    //cout << "Parametro 0 del fit : " << f1->GetParameter(0) << endl;
-    //cout << "Parametro 1 del fit : " << f1->GetParameter(1) << endl;
-    //cout << "Parametro 2 del fit : " << f1->GetParameter(2) << endl;
+    canva.SetGridx();
+    canva.SetGridy();
+    canva.SetWindowSize(1200, 700);
+    
+    trend.SetMarkerStyle(15);
+    trend.SetTitle("Grafico del campo elettrico di un dipolo");
+    trend.GetXaxis()->SetTitle("z");
+    trend.GetYaxis()->SetTitle("E(z)");
+    trend.Draw("ALP");
+    canva.Update();
 
     app.Run();
 

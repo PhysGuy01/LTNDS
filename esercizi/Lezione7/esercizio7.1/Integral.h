@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <cmath>
 
@@ -24,11 +25,10 @@ class Integral {
 
     protected:
 
-        void checkInterval( double a, double b ) {
+        void checkInterval(double a, double b) {
             m_a = min(a,b);
             m_b = max(a,b);
-            if ( a > b ) m_sign = -1;
-            else m_sign = 1;
+            m_sign = (a > b) ? -1 : 1;
         }
 
         unsigned int m_nstep;
@@ -75,40 +75,4 @@ double Simpson::Integra(unsigned int nstep, const FunzioneBase& f) {
     m_integral = m_sign * m_sum * m_h;
 
     return m_integral;
-}
-
-
-// Classe per metodo dei trapezi
-
-class Trapezi : public Integral {
-    public:
-        Trapezi (double a, double b) : Integral (a,b) {;};
-        virtual double Integra(double prec = 1e-03, const FunzioneBase &);  
-}
-
-double Trapezi::Integra(double prec, const FunzioneBase &f) {    
-    int i = 1;
-    double xi;
-    double err;
-    while (err >= prec) {
-        m_h = (m_b - m_a) / i;
-        err = i * pow(m_h, 2);
-
-        xi = m_a + i * m_h;
-
-        if (i == 0 || err == prec) {
-            K = 1. / 2.;
-        } else {
-            K = 1.;
-        }
-        
-        m_sum = m_sign * K * f.Eval(xi);
-        
-        i++; 
-    }
-
-    m_integral = m_sign * m_sum * m_h;
-
-    return m_integral;
-
 }

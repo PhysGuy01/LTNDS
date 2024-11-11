@@ -5,7 +5,6 @@
 class Particella {
 
     public:
-        // Particella();
         Particella(double massa, double carica);
         
         ~Particella(){;};

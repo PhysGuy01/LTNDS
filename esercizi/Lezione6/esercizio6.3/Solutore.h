@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// Implementa una funzione segno che ritorna +-1 a seconda del segno del valore passato
+// Implementa una funzione segno che ritorna +1 o -1 a seconda del segno del valore passato
 int sign(double x) {return (x > 0 ? 1 : -1);};
  
 
@@ -20,8 +20,6 @@ class Solutore {
         void setMaxIter(unsigned int n) {nmax = n;};
         unsigned getMaxIter() {return nmax;};
 
-        unsigned getNIter() {return niter;};
-
         virtual double CercaZeri(double xmin ,
                                     double xmax ,
                                     const FunzioneBase& f,
@@ -32,7 +30,6 @@ class Solutore {
         double ma, mb; // estremi intervallo
         double mprec; // precisione
         unsigned int nmax; // numero max di iterazioni permesse
-        unsigned int niter; // numero di iterazioni effettuate
 
 };
 
@@ -52,32 +49,35 @@ double Bisezione::CercaZeri(double xmin, double xmax, const FunzioneBase& f, dou
     double a = xmin; // estremo inferiore
     double b = xmax; // estremo superiore
 
+    // Definisce lo zero come nan per verificare di averne trovato uno nel ciclo for
     double zero = nan("1");
+    double xmed;
     
+    // Controlla che la funzione cambi di segno tra gli estremi per applicare Weierstrass
     if (sign(f.Eval(a)) * sign(f.Eval(b)) > 0) {
         cout << "Errore: Non e' detto che la funzione abbia zeri!" << endl;
         exit(2);
-    } else {
-        for (int i = 0; i < nmax; i++) {
-            double xmed = (a + b) / 2;
-            if (f.Eval(xmed) > 0)
-                b = xmed;
-            
-            else if (f.Eval(xmed) < 0) 
-                a = xmed;
-            
-            else {
-                zero = xmed; 
-                break;
-            }
+    }
+
+    // Controlla se la funzione ha zeri agli estremi
+    if (f.Eval(a) == 0) return a;
+    if (f.Eval(b) == 0) return b;
+
+    for (unsigned int i = 0; i < nmax; i++) {
+        xmed = (a + b) / 2.;
+        double fmed = f.Eval(xmed);
+
+        if (fmed == 0) {
+            zero = xmed; // Trovato lo zero!
+            break;
+        } else if (sign(f.Eval(a)) == sign(fmed)) {
+            a = xmed; // Sposta gli estremi
+        } else {
+            b = xmed; 
         }
     }
 
-    if (isnan(zero)) {
-        cout << "Limite di iterazioni ecceduto. Calcolata la migliore stima." << endl;
-        return (a + b) / 2;
-    } else {
-        return zero;
-    }
+    // Returna una stima se non e' riuscito a trovare lo zero, altrimenti ritorna lo zero 
+    return isnan(zero) ? xmed : zero;
 }
 

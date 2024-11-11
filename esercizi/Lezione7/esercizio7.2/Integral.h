@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <cmath>
 #include <iomanip>
@@ -24,59 +25,17 @@ class Integral {
         double getIntegral() {return m_integral;};
 
     protected:
-
-        void checkInterval( double a, double b ) {
+        void checkInterval(double a, double b) {
             m_a = min(a,b);
             m_b = max(a,b);
-            if ( a > b ) m_sign = -1;
-            else m_sign = 1;
+            m_sign = (a > b) ? -1 : 1;
         }
 
         unsigned int m_nstep;
         double m_a, m_b;
         double m_sum, m_integral, m_h;
         int m_sign;
-
 };
-
-
-// Classe per metodo di Simpson
-
-class Simpson : public Integral {
-    public:    
-        Simpson (double a, double b) : Integral(a,b) {;};
-        
-        virtual double Integra(unsigned int nstep, const FunzioneBase &);
-};
-
-double Simpson::Integra(unsigned int nstep, const FunzioneBase& f) {
-    if (nstep % 2 != 0) {
-        cout << "Il numero di passi deve essere pari!" << endl;
-        exit(1);
-    }
-
-    m_h = (m_b - m_a) / nstep;
-    double K;   // coefficiente moltiplicatore della funzione
-    double xi;
-
-    for (int i = 0; i <= nstep; i++) {
-        xi = m_a + i * m_h;
-        
-        if (i == 0 || i == nstep) {
-            K = 1. / 3.;
-        } else if (i % 2 == 0) {
-            K = 4. / 3.;
-        } else {
-            K = 2. / 3.;
-        }
-
-        m_sum += K * f.Eval(xi);
-    }
-
-    m_integral = m_sign * m_sum * m_h;
-
-    return m_integral;
-}
 
 
 // Classe per metodo dei trapezi
@@ -88,40 +47,49 @@ class Trapezi : public Integral {
         virtual double Integra(unsigned int nstep, const FunzioneBase &);
 
         double Integra(double prec , const FunzioneBase &);  
+
+        double Int_passo(const FunzioneBase&, double N);
 };
 
 double Trapezi::Integra(unsigned int nstep, const FunzioneBase& f) {
-    cout << "Metodo non implementato, utilizzare Integra(double,const FunzioneBase&)." << endl;
+    cout << "Metodo non implementato, utilizzare Integra(double, const FunzioneBase&)." << endl;
     exit(3);
 }
 
-double Trapezi::Integra(double prec, const FunzioneBase &f) {    
-    int i = 1;
-    double xi;
-    double err = pow(m_b - m_a, 2);
-    double K;
+// Approssima l'integrale della funzione f con passo N attraverso il metodo dei trapezi
+double Trapezi::Int_passo(const FunzioneBase& f, double N) {
+    double xi, K, h;
+    double Sum = 0.;
 
-    while (err >= prec) {
-        m_h = (m_b - m_a) / i;
-        err = i * pow(m_h, 2);
+    h = (m_b - m_a) / N;
+    for (int i = 0; i <= N; i++) {
+        xi = m_a + i * h;
         
-        cout << setprecision(10) << xi << endl;
-
-        xi = m_a + i * m_h;
-
-        if (i == 0 || err == prec) {
+        if (i == 0 || i == N) {
             K = 1. / 2.;
         } else {
             K = 1.;
-        } 
-        
-        m_sum +=  K * f.Eval(xi);
-        cout << i << " " << m_h << endl;
-        i++; 
+        }
+
+        Sum += K * f.Eval(xi);
+    }
+    return Sum * h;
+}
+
+double Trapezi::Integra(double prec, const FunzioneBase &f) {    
+    double err = pow(m_b - m_a, 2);
+    double In, I2n; // Integrale a passo N e a passo 2N
+
+    int N = 1;
+    while (err >= prec) {
+        In = Int_passo(f, N);
+        I2n = Int_passo(f, 2*N);
+
+        err = (4./3) * fabs(I2n - In);
+        N++;
     }
 
-    m_integral = m_sign * m_sum * m_h;
+    m_integral = m_sign * I2n;
 
     return m_integral;
-
 }

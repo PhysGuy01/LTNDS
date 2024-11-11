@@ -6,9 +6,8 @@ class FunzioneBase {
         virtual double Eval(double x) const = 0; 
 };
 
-// Equazione trigonometricha del tipo sin(x) - x * cos(x) = 0 
+// Equazione trigonometricha del tipo f(x) = sin(x) - x * cos(x) 
 class Trigonometrica : public FunzioneBase {
     public:
-        Trigonometrica() {;};
-        virtual double Eval(double x) {return (sin(x) - x * cos(x));};
+        virtual double Eval(double x) const override {return (sin(x) - x * cos(x));};
 };

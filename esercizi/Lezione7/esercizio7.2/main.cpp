@@ -16,17 +16,13 @@ int main(int argc, char** argv) {
 
     double prec = atof(argv[1]);
 
-
     xsinx f;
 
     Trapezi integ(0., M_PI/2.);
 
     double I = integ.Integra(prec, f);
 
-    cout << "Integrale di f(x) = xsinx in [0, pi/2]: "<< setprecision(-log10(prec)) << I << endl;
-
-
-    // TODO: costruire grafico con ROOT
+    cout << "Integrale di f(x) = xsinx in [0, pi/2]: "<< fixed << setprecision(-log10(prec)) << I << endl;
 
     return 0;
 
