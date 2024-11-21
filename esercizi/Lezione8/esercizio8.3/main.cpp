@@ -26,14 +26,14 @@ int main (int argc, char** argv ) {
 
     RungeKutta rung;
 
-    OscillatoreArmonico osc(1.);
+    Pendolo osc(1.);
 
     // 70 secondi
-    double tmax = 70.;
+    double tmax = 300.;
     double h = atof(argv[1]);
 
     // condizioni iniziali
-    vector<double> x {0.,1.} ;
+    vector<double> x {1.,0.} ;
 
     double t = 0.; 
 
@@ -49,10 +49,10 @@ int main (int argc, char** argv ) {
 
     // grafico  
     TCanvas *c1 = new TCanvas();
-    c1->Divide(1,2); // 1 column 2 rows
+    c1->Divide(1,3); // 1 column 2 rows
     c1->cd(1);
-    c1->SetWindowSize(1200, 700);
-    string title = "Oscillatore armonico (h = " + convert(h) + ")" ;
+    c1->SetWindowSize(600, 1400);
+    string title = "Pendolo (h = " + convert(h) + ")" ;
     myGraph.SetTitle(title.c_str());
     myGraph.GetXaxis()->SetTitle("Tempo [s]");
     myGraph.GetYaxis()->SetTitle("Posizione x [m]");
@@ -60,10 +60,37 @@ int main (int argc, char** argv ) {
     gPad->SetGridy(1);
     gPad->SetGridx(1);
 
+    TGraph pend;
+    c1->cd(2);
+    for (int i = 0; i < 30; i++) {
+        double A=0.1 * (i+1); //* i;
+        double v=0.;
+        t = 0.; 
+        x = {-A , v};
+        
+        while ( x[1]>=0.) {
+            v = x[1];    
+            x = rung.Passo(t,x,h,osc);
+            t = t+h;
+            //cout << A << " " << x[0] << " " << t << endl;
+        }
+        t = t -h - v*h/(x[1]-v);
+        double T = 2 * t ;
+        cout << "T " << T << endl; 
+        pend.SetPoint(i, A, T);
+    }
+    pend.SetMarkerStyle(20);
+    pend.SetTitle("Periodo di oscillazione");
+    pend.GetXaxis()->SetTitle("Ampiezza [m]");
+    pend.GetYaxis()->SetTitle("Periodo [s]");
+    pend.Draw("ALP");
+    gPad->SetGridy(1);
+    gPad->SetGridx(1);
 
     // Grafico dell'errore
 
     TGraph err;
+       c1->cd(3);
 
     for (int i = 1; i < 10; i++) {
         h = 0.1 * pow(0.5, i);
@@ -82,7 +109,6 @@ int main (int argc, char** argv ) {
     err.GetXaxis()->SetTitle("Errore [m]");
     err.GetYaxis()->SetTitle("Passi di integrazione h [s]");
     err.SetMarkerStyle(20);
-    c1->cd(2);
     err.Draw("APL");
     gPad -> SetLogy();
     gPad -> SetLogx();
