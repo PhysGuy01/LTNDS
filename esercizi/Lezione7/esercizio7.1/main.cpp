@@ -17,7 +17,7 @@ using namespace std;
 int main(int argc, char** argv) {
         
     if (argc != 2) {
-        cout << "Utilizzo: ./" << argv[0] << "<nsteps>" << endl;
+        cout << "Utilizzo: ./" << argv[0] << " <nsteps>" << endl;
         exit(1);  
     }   
 
@@ -34,6 +34,9 @@ int main(int argc, char** argv) {
 
     // Grafico con ROOT
 
+   
+    // Grafico con ROOT
+
     TApplication app("app",0,0);
 
     TGraph trend;
@@ -47,25 +50,27 @@ int main(int argc, char** argv) {
         Iw = integ.Integra(nstep, f); 
         err = fabs(Iw-Iv);
 
-        trend.SetPoint(k, nstep, h);
+        trend.SetPoint(k, nstep, err);
         nstep *= 2;
     }
 
-    TCanvas canva("Precisione","Passi");
-    canva.cd();
-    canva.SetGridx();
-    canva.SetGridy();
-    canva.SetWindowSize(1200, 700);
+    TCanvas *c1 = new TCanvas();
+    c1->cd();
+    c1->SetGridx();
+    c1->SetGridy();
+    c1->SetWindowSize(1200, 700);
 
     trend.SetMarkerStyle(20);
-    trend.SetTitle("Precisione in funzione del numero di passi");
-    trend.GetXaxis()->SetTitle("Passo");
-    trend.GetYaxis()->SetTitle("Precisione");
+    trend.SetTitle("Errore in funzione del numero di passi");
+    trend.GetXaxis()->SetTitle("Numero di passi");
+    trend.GetYaxis()->SetTitle("Errore");
     trend.Draw("ALP");
-
-    canva.SaveAs("trend.png");
+    gPad -> SetLogx();
+    c1->Update();
 
     app.Run();
+
+    c1->SaveAs("trend.png");
 
     return 0;
 

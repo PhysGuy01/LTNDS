@@ -4,21 +4,15 @@
 
 using namespace std;
 
-// ===========================================================================
-// classe astratta, restituisce la derivata valutata nel punto x
-// ===========================================================================
-
 class FunzioneVettorialeBase {
-
-public:
-    virtual vector<double> Eval(double t, const vector<double> & x) const = 0;
+    public:
+        virtual vector<double> Eval(double t, const vector<double> & x) const = 0;
 };
 
-// caso fisico concreto, oscillatore armonico
 
 class OscillatoreArmonico : public FunzioneVettorialeBase {
     public:
-        OscillatoreArmonico(double omega0) {  m_omega0 = omega0;  } ;
+        OscillatoreArmonico(double omega0) {m_omega0 = omega0;};
 
         virtual vector<double> Eval(double t, const vector<double> & x) const {
 
@@ -34,41 +28,32 @@ class OscillatoreArmonico : public FunzioneVettorialeBase {
         double m_omega0;  
 };
 
-// ===========================================================================
-// classe astratta per un integratore di equazioni differenziali
-// ===========================================================================
 
 class EquazioneDifferenzialeBase {
-
-public:
-  virtual vector<double> Passo(double t, 
-                               const vector<double>& x, 
-                               double h, 
-                               const FunzioneVettorialeBase &f) const =0;
+    public:
+        virtual vector<double> Passo(double t, 
+                                    const vector<double>& x, 
+                                    double h, 
+                                    const FunzioneVettorialeBase &f) const =0;
 };
 
 
-
-// integratore concreto, metodo di Eulero
-
+// metodo di Eulero
 class Eulero : public EquazioneDifferenzialeBase {
 
- public:
+    public:
 
-  virtual vector<double> Passo(double t, 
-                               const vector<double> & x, 
-                               double h, 
-                               const FunzioneVettorialeBase &f) const override {
-
-    return x + (f.Eval(t, x)) * h;
-
-  };
+        virtual vector<double> Passo(double t, 
+                                    const vector<double> & x, 
+                                    double h, 
+                                    const FunzioneVettorialeBase &f) const override {
+            return x + (f.Eval(t, x)) * h;
+        };
 
 };
 
 
-// integratore concreto, metodo di Runge-Kutta
-
+// metodo di Runge-Kutta
 class RungeKutta : public EquazioneDifferenzialeBase {
 
  public:
@@ -86,7 +71,6 @@ class RungeKutta : public EquazioneDifferenzialeBase {
 
 
     return x + (k1 + (k2 * 2.) + (k3 * 2.) + k4) * h / 6.;
-
   };
 
 };
