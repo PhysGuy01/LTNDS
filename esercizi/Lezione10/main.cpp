@@ -54,6 +54,8 @@ int main() {
     gauAR.GetYaxis()->SetTitle("N");
     gauAR.Draw();
     
+    c1->SaveAs("grafici.png");
+
     app.Run();
 
 }
