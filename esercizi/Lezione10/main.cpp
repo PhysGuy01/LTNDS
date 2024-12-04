@@ -25,7 +25,6 @@ int main() {
     TH1F gauAR("Gaussiana AR","Gaussiana AR",70,0,20);
 
     for ( int k = 0 ; k < nmax ; k++ ) {
-
         unif.Fill(myGen.Unif(5,10));  
         exp.Fill(myGen.Exp(1));
         gau.Fill(myGen.Gaus(10, 2));
@@ -54,6 +53,7 @@ int main() {
     gauAR.GetYaxis()->SetTitle("N");
     gauAR.Draw();
     
+    c1->SetWindowSize(3500,3500);
     c1->SaveAs("grafici.png");
 
     app.Run();

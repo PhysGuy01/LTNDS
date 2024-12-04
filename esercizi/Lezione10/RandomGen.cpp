@@ -9,28 +9,24 @@
 
 int main() {
 
-  TApplication app("app",0,0);
+    TApplication app("app",0,0);
 
-  RandomGen myGen(1);
+    RandomGen myGen(1);
 
-  int nmax = 10000;
+    int nmax = 10000;
 
-  TH1F unif("Uniforme","Uniforme",70,4,11) ;
+    TH1F unif("Uniforme","Uniforme",70,4,11);
 
-  for ( int k = 0 ; k < nmax ; k++ ) {
-
-    unif.Fill( myGen.Unif(5,10)  ) ;  
-
+    for (int k = 0 ; k < nmax ; k++) 
+        unif.Fill( myGen.Unif(5,10)); 
     
 
-  }
+    TCanvas can2("Uniforme","Uniforme");
+    can2.cd();
+    unif.GetXaxis()->SetTitle("x [AU]");
+    unif.GetYaxis()->SetTitle("N");
+    unif.Draw();
 
-  TCanvas can2("Uniforme","Uniforme") ;
-  can2.cd();
-  unif.GetXaxis()->SetTitle("x [AU]");
-  unif.GetYaxis()->SetTitle("N");
-  unif.Draw();
-
-  app.Run();
+    app.Run();
 
 }
