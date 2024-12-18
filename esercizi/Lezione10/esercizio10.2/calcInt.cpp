@@ -3,11 +3,12 @@
 
 #include <fstream>
 #include <string>
+
 using namespace std;
 
 void printIntegral(int nPunti, FunzioneBase& f) {
     fstream file;
-    file.open("datiN" + string(nPunti) + ".dat", ios::app);
+    file.open("datiN" + to_string(nPunti) + ".dat", ios::app);
 
     for (int i = 0; i < nPunti; i++) {
         IntegratoreMedia integ(i);

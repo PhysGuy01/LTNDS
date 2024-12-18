@@ -9,46 +9,80 @@
 
 using namespace std;
 
-int main(int argc, char** argv) {
-        
-    if (argc != 2) {
-        cout << "Utilizzo: ./" << argv[0] << "<file_dati>" << endl;
-        exit(1);  
-    }   
 
-    string filename = argv[1];
-
-    cout << filename;
+void loadHist(TH1F &dat, string filename) {
     fstream file;
     file.open(filename, ios::in);
 
-    // TODO: Implementare un modo per verificare il numero di elementi nel file (spoiler: saranno 10k)
-    int nDat = 10000;
+    string riga;
+    while(getline(file, riga)) {
+        double integ;
+        file >> integ;
+        dat.Fill(integ);
+    }
+}
+
+int main() {
 
     TApplication app("app",0,0);
 
 
     // per distribuire bene i grafici nel range... boh non sio in realta
-    TH1F gaus("Distribuzione Integrali","Distribuzione Integrali",100,0.5,1.5);
+    TH1F dat500("N = 500","N = 500",100,0.5,1.5);
+    TH1F dat1000("N = 1000","N = 1000",100,0.5,1.5);
+    TH1F dat5000("N = 5000","N = 5000",100,0.5,1.5);
+    TH1F dat10000("N = 10000","N = 10000",100,0.5,1.5);
+    TH1F dat50000("N = 50000","N = 50000",100,0.5,1.5);
+    TH1F dat100000("N = 1000000","N = 1000000",100,0.5,1.5);
 
-    string linea;
-    // while(getline(file, linea)) {
-    for (int i = 0; i < 10000; i++) {    
-        double integ;
-        file >> integ;
-        // cout << integ;
-        gaus.Fill(integ);
-    }
+    loadHist(dat500, "datiN500.dat");
+    loadHist(dat1000, "datiN1000.dat");
+    loadHist(dat5000, "datiN5000.dat");
+    loadHist(dat10000, "datiN10000.dat");
+    loadHist(dat50000, "datiN50000.dat");
+    loadHist(dat100000, "datiN100000.dat");
 
 
     TCanvas *c1 = new TCanvas();
-    c1 -> cd();
-    gaus.GetXaxis()->SetTitle("Integrali");
-    gaus.GetYaxis()->SetTitle("N");
-    gaus.Draw();
+    c1->Divide(3,2); 
+    c1->SetTitle("Distribuzioni integrali");
 
+    c1 -> cd(1);
+    dat500.GetXaxis()->SetTitle("Integrali");
+    dat500.GetYaxis()->SetTitle("N");
+    dat500.Draw();
+
+    c1 -> cd(2);
+    dat1000.GetXaxis()->SetTitle("Integrali");
+    dat1000.GetYaxis()->SetTitle("N");
+    dat1000.Draw();
+
+    c1 -> cd(3);
+    dat5000.GetXaxis()->SetTitle("Integrali");
+    dat5000.GetYaxis()->SetTitle("N");
+    dat5000.Draw();
+
+    c1 -> cd(4);
+    dat10000.GetXaxis()->SetTitle("Integrali");
+    dat10000.GetYaxis()->SetTitle("N");
+    dat10000.Draw();
+
+    c1 -> cd(5);
+    dat50000.GetXaxis()->SetTitle("Integrali");
+    dat50000.GetYaxis()->SetTitle("N");
+    dat50000.Draw();
+
+    c1 -> cd(6);
+    dat100000.GetXaxis()->SetTitle("Integrali");
+    dat100000.GetYaxis()->SetTitle("N");
+    dat100000.Draw();
+
+    
     c1->SetWindowSize(2000,2500);
     c1->SaveAs("grafici.png");
+
+    c1->Update(); // Forza l'update della canvas
+
 
     app.Run();
 
