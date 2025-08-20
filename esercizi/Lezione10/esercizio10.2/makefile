@@ -1,6 +1,6 @@
 ROOT_FLAGS := `root-config --cflags --libs`
 
-all: integrali, grafico
+all: integrali grafico
 
 integrali: calcInt.cpp FunzioneBase.h IntegraleMC.h RandomGen.h
 	${CXX} -o integrali $<

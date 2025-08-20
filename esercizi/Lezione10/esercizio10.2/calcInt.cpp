@@ -9,14 +9,13 @@ using namespace std;
 void printIntegral(int nPunti, FunzioneBase& f) {
     fstream file;
     file.open("datiN" + to_string(nPunti) + ".dat", ios::app);
+    cout << "ok" << endl;
 
-    for (int i = 0; i < nPunti; i++) {
+    for (int i = 0; i < 10000; i++) {
         IntegratoreMedia integ(i);
-        double valInteg = integ.Integra(f, 0, M_PI/2, 500);
+        double valInteg = integ.Integra(f, 0, M_PI/2, nPunti);
         
         file << valInteg << endl;
-
-        //sumSigma += valInteg;
     }
 }
 

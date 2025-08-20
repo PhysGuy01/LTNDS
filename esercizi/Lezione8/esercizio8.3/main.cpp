@@ -72,13 +72,14 @@ int main (int argc, char** argv ) {
             v = x[1];    
             x = rung.Passo(t,x,h,osc);
             t = t+h;
-            //cout << A << " " << x[0] << " " << t << endl;
         }
-        t = t -h - v*h/(x[1]-v);
-        double T = 2 * t ;
-        cout << "T " << T << endl; 
+
+        t = t -h - v*h/(x[1]-v); // e questo fa schifo sinceramente
+        double T = 2 * t ; // TODO: controlla sta roba che faceva schifo cera un cout << T per qualche motivo
+
         pend.SetPoint(i, A, T);
     }
+
     pend.SetMarkerStyle(20);
     pend.SetTitle("Periodo di oscillazione");
     pend.GetXaxis()->SetTitle("Ampiezza [m]");

@@ -1,6 +1,9 @@
 #pragma once
 #include "RandomGen.h"
 #include "FunzioneBase.h"
+#include <iostream>
+using namespace std;
+
 
 class IntegraleMC {
 
