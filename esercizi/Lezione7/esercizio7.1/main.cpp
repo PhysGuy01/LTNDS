@@ -32,8 +32,6 @@ int main(int argc, char** argv) {
     cout << "Integrale di f(x) = xsinx in [0, pi/2]: " << I << endl;
 
 
-    // Grafico con ROOT
-
    
     // Grafico con ROOT
 
@@ -65,7 +63,7 @@ int main(int argc, char** argv) {
     trend.GetXaxis()->SetTitle("Numero di passi");
     trend.GetYaxis()->SetTitle("Errore");
     trend.Draw("ALP");
-    gPad -> SetLogx();
+    c1->SetLogx();
     c1->Update();
 
     app.Run();

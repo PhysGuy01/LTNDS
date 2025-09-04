@@ -63,7 +63,7 @@ int main (int argc, char** argv ) {
     TGraph pend;
     c1->cd(2);
     for (int i = 0; i < 30; i++) {
-        double A=0.1 * (i+1); //* i;
+        double A=0.1 * (i+1);
         double v=0.;
         t = 0.; 
         x = {-A , v};
@@ -74,8 +74,8 @@ int main (int argc, char** argv ) {
             t = t+h;
         }
 
-        t = t -h - v*h/(x[1]-v); // e questo fa schifo sinceramente
-        double T = 2 * t ; // TODO: controlla sta roba che faceva schifo cera un cout << T per qualche motivo
+        t = t - h - v*h/(x[1] - v); 
+        double T = 2 * t ; 
 
         pend.SetPoint(i, A, T);
     }

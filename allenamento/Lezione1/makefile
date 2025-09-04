@@ -1,4 +1,4 @@
-.PHONY = all clean compila clean
+.PHONY = all clean compila
 
 all : compila
 
