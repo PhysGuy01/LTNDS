@@ -41,11 +41,10 @@ int main() {
     TH1F distrB("Distribuzione B","Distribuzione B",70,58.8E-15,61.1E-15);
     TH2F distrRhoAB("Distribuzione #rho_{A,B}","Distribuzione #rho_{A,B}",70,2.695,2.706,100,58.8E-15,61.1E-15);
 
-    // TODO: CALCOLA RHO!!
     double sumDm1mis = 0, sumDm2mis = 0, sumN1mis = 0, sumN2mis = 0, sumAmis = 0, sumBmis = 0, sumDm12mis = 0, sumN12mis = 0, sumABmis = 0;
     int nEntries = 10000;
+    EsperimentoPrisma esp(1);
     for (int i = 0; i < nEntries; i++) {
-        EsperimentoPrisma esp(i);
         esp.Esegui();
         esp.Analizza();
         distrTh0.Fill(esp.getTh0mis());

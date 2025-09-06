@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 
     RandomGen RG(seed);
     for (int i = 0; i < 10000; i++) {
-        histo.Fill(RG.Gaus(.5,.1));
+        histo.Fill(RG.Rand());
     }
 
     c.cd();
