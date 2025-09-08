@@ -89,7 +89,7 @@ int main (int argc, char** argv ) {
     gPad->SetGridy(1);
     gPad->SetGridx(1);
     
-    c1->Update(); // Forza l'update della canvas
+    c1->Update(); 
 
     c1->SaveAs("grafici.png");
 

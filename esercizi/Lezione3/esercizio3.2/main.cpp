@@ -3,7 +3,7 @@
 int main(int argc, char** argv) {
 
     if (argc < 3) {
-        cout << "Utilizzo programma: ./prog <n_data> <filename>" << endl;
+        cout << "Utilizzo programma: " << argv[0] << " <n_data> <filename>" << endl;
         exit(99); 
     }
 

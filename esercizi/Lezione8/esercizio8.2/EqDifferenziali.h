@@ -1,4 +1,5 @@
 #pragma once
+
 #include "VectorOperations.h" 
 #include <cmath> 
 

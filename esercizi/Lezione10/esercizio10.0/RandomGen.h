@@ -57,11 +57,11 @@ double RandomGen::GausAR(double mean, double sigma, double xmin, double xmax, do
     double t = Rand();
     double x = xmin + (xmax - xmin) * s;
     double y = ymax * t;
-    double fx = exp(-.5 * pow((x - mean)/sigma, 2)/(sigma * sqrt(2 * M_PI)));
+    double fx = exp(-.5 * pow((x - mean)/sigma, 2))/(sigma * sqrt(2 * M_PI));
     
     if (y <= fx) 
         return x;
     else 
-        GausAR(mean, sigma, xmin, xmax, ymax);
+        return GausAR(mean, sigma, xmin, xmax, ymax);
     
 }

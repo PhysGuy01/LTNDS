@@ -19,7 +19,7 @@ mpl.ylabel("Delta")
 mpl.legend()
 
 # Salva su una png
-mpl.savefig("plot.png")
+mpl.savefig("pyplot.png")
 
 # Disegna
 mpl.show()

@@ -5,10 +5,7 @@
 #include "TAxis.h"
 #include "TPaveStats.h"
 #include "TLatex.h"
-#include <TStyle.h>
-
-
-
+#include "TStyle.h"
 
 #include <iostream>
 #include <cmath>

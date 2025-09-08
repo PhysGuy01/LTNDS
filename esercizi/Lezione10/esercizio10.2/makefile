@@ -9,4 +9,4 @@ grafico: graph.cpp
 	${CXX} -o grafico $< ${ROOT_FLAGS}
 
 clean :
-	rm *.o
+	rm *.dat grafico integrali

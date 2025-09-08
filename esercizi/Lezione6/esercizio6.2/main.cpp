@@ -10,7 +10,7 @@ using namespace std;
 int main(int argc, char** argv) {
     
     if (argc < 4) {
-        cout << "Utilizzo: ./" << argv[0] << " <estremo_a> <estremo_b> <precisione>" << endl;
+        cout << "Utilizzo: " << argv[0] << " <estremo_a> <estremo_b> <precisione>" << endl;
         exit(1);  
     }
 
@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
     
     int n_cifre = -log10(prec);
     double xzero = bis.CercaZeri(a, b, f, prec, 50);
-    cout << "Zero della funzione nell'intervallo [" << a << ", " << b << "]: x = " << fixed <<setprecision(n_cifre) << xzero << endl;
+    cout << "Zero della funzione nell'intervallo [" << a << ", " << b << "]: x = " << fixed << setprecision(n_cifre) << xzero << endl;
 
     return 0;
 }

@@ -3,7 +3,7 @@ ROOT_FLAGS := `root-config --cflags --libs`
 all: compila
 
 compila: main.cpp RandomGen.h
-	${CXX} -o prog $< ${ROOT_FLAGS}
+	${CXX} -o esercizio10.0 $< ${ROOT_FLAGS}
 
 clean:
-	rm *.o
+	rm esercizio10.0

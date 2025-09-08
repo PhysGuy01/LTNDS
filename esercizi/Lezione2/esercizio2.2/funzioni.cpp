@@ -30,7 +30,10 @@ Vettore Read(int nDat, string& filename) {
     return V;
 }
 
-// Funzioni analisi:
+
+// --------------------
+// Funzioni di analisi:
+// --------------------
 
 // Calcola la media di un set di dati in un vettore
 double CalcMedia(const Vettore& V) {

@@ -14,4 +14,4 @@ compila: main.o funzioni.o
 	${CXX} -o esercizio1.3 $^
 
 clean: 
-	rm -f funzioni.o main.o esercizio1.3
+	rm -f *.o esercizio1.3

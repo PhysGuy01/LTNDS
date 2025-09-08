@@ -10,7 +10,7 @@ using namespace std;
 int main(int argc, char** argv) {
         
     if (argc != 2) {
-        cout << "Utilizzo: ./" << argv[0] << "<prec>" << endl;
+        cout << "Utilizzo: " << argv[0] << " <prec>" << endl;
         exit(1);  
     }   
 

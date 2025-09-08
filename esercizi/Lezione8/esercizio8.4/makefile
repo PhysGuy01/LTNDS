@@ -7,4 +7,4 @@ compila: main.cpp EqDifferenziali.h VectorOperations.h
 	${CXX} -o prog $< ${ROOT_FLAGS}
 	
 clean:
-	rm *.o
+	rm prog

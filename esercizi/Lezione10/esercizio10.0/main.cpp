@@ -31,7 +31,7 @@ int main() {
         gauAR.Fill(myGen.GausAR(10, 2, 0, 20, 100));
     }
 
-    TCanvas *c1 = new TCanvas();
+    TCanvas *c1 = new TCanvas("Generatori di numeri casuali", "Generatori di numeri casuali");
     c1->Divide(1,4); // 1 column 4 rows
     c1->cd(1);
     unif.GetXaxis()->SetTitle("x [AU]");
@@ -53,7 +53,7 @@ int main() {
     gauAR.GetYaxis()->SetTitle("N");
     gauAR.Draw();
     
-    c1->SetWindowSize(3500,3500);
+    c1->SetWindowSize(1000,1000);
     c1->SaveAs("grafici.png");
 
     app.Run();

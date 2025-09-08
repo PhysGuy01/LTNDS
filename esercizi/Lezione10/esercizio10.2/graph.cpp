@@ -102,8 +102,8 @@ int main() {
     err.SetMarkerStyle(20);
     err.Draw("APL");
 
-    gPad -> SetLogy();
-    gPad -> SetLogx();
+    gPad->SetLogy();
+    gPad->SetLogx();
     gPad->SetGridy(1);
     gPad->SetGridx(1);
 

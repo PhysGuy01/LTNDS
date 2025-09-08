@@ -68,9 +68,7 @@ class Pendolo : public FunzioneVettorialeBase {
 };
 
 
-// --------------------------
-//      Eq Differenziali
-// --------------------------
+
 
 class EquazioneDifferenzialeBase {
     public:

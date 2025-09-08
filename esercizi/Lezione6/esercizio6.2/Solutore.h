@@ -41,7 +41,7 @@ class Bisezione : public Solutore {
 
         virtual double CercaZeri(double xmin, double xmax,
                                     const FunzioneBase& f,
-                                    double prec = 0.001, // valori di default
+                                    double prec = 0.001, 
                                     unsigned int nmax = 100)  ;
 };
 

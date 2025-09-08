@@ -28,7 +28,6 @@ int main (int argc, char** argv ) {
 
     Pendolo osc(1.);
 
-    // 70 secondi
     double tmax = 300.;
     double h = atof(argv[1]);
 

@@ -17,7 +17,7 @@ using namespace std;
 int main(int argc, char** argv) {
         
     if (argc != 2) {
-        cout << "Utilizzo: ./" << argv[0] << " <nsteps>" << endl;
+        cout << "Utilizzo: " << argv[0] << " <nsteps>" << endl;
         exit(1);  
     }   
 
@@ -64,7 +64,9 @@ int main(int argc, char** argv) {
     trend.GetYaxis()->SetTitle("Errore");
     trend.Draw("ALP");
     c1->SetLogx();
+    c1->SetLogy();
     c1->Update();
+    c1->SaveAs("grafico.png");
 
     app.Run();
 
