@@ -78,6 +78,7 @@ int main() {
     distrTh2.Draw();
     
     c->Update();
+    c->SaveAs("grafico.png");
     app.Run();
 
     return 0;
